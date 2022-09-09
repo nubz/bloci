@@ -8,7 +8,6 @@ function SetBlockPage(props) {
 
   const query = new URLSearchParams(search);
   const blockOwner = query.get('id');
-  console.log('query', blockOwner)
   return (
     <>
       <Mapbox blockOwner={blockOwner} />

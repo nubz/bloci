@@ -35,6 +35,7 @@ export function useBlocksByOwner(owner) {
 }
 
 export function useFeatures() {
+  console.log('trying to use features')
   return useQuery(firestore.collection("featureTypes"))
 }
 
@@ -67,6 +68,7 @@ export function createFeature(data) {
     area: data.area,
     featureType: data.featureType
   }
+  console.log('creating feature', normalised)
   return firestore.collection("features").add(normalised);
 }
 
@@ -176,6 +178,7 @@ function getDocData(doc) {
 
 // Get array of doc data from collection
 function getCollectionData(collection) {
+  console.log('getting collection data for', collection)
   return collection.docs.map((doc) => {
     return { id: doc.id, ...doc.data() };
   });

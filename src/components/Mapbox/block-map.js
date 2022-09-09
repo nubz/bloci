@@ -30,7 +30,7 @@ const BlockMap = props => {
 
   const mapContainer = useRef(null)
 
-  const { data: featureTypes } = useFeatures()
+  const featureTypes = useFeatures()
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
@@ -64,13 +64,15 @@ const BlockMap = props => {
         map.on('draw.update', updateArea)
 
         function updateArea(e) {
-          const data = draw.getAll()
-          if (data.features.length > 0) {
-            const area = turf.area(data)
+          const mapData = draw.getAll()
+          setNewFeature(mapData)
+          console.log('data:', mapData)
+          if (mapData.features.length > 0) {
+            const area = turf.area(mapData)
+            console.log('area = ' + area)
             setBlockArea(Math.round(area * 100) / 100)
-            setNewFeature(data)
           } else {
-            console.log('data has no features')
+            console.log('mapData has no features')
             setBlockArea(0)
           }
         }
@@ -79,14 +81,18 @@ const BlockMap = props => {
 
         const bounds = coordinates.reduce(function(b, coord) {
           return b.extend(coord);
-        }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+        }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]))
+
         map.fitBounds(bounds, {
           padding: 20
-        });
-      });
-    };
+        })
+      })
+    }
 
-    if ((!map && block && block.feature) || resetMap) initializeMap({ setMap, mapContainer })
+    if ((!map && block && block.feature) || resetMap) {
+      console.log('resetting map')
+      initializeMap({ setMap, mapContainer })
+    }
   }, [map, block, resetMap]);
 
   useEffect(() => {
@@ -104,12 +110,12 @@ const BlockMap = props => {
 
         map.addLayer({
           'id': block.id,
-          'type': 'fill',
+          'type': 'line',
           'source': block.id,
           'layout': {},
           'paint': {
-            'fill-color': '#4caf50',
-            'fill-opacity': 0.5
+            'line-color': '#4caf50',
+            'line-width': 3
           }
         })
 
@@ -130,8 +136,9 @@ const BlockMap = props => {
             'source': featureId,
             'layout': {},
             'paint': {
-              'fill-color': '#ff4136',
-              'fill-opacity': 0.8
+              'fill-color': '#4caf50',
+              'fill-opacity': 0.3,
+              'fill-outline-color': '#ffffff'
             }
           })
 
@@ -156,8 +163,12 @@ const BlockMap = props => {
     }
   }, [map, block, blockFeatures, mapLoaded])
 
+  useEffect(() => {
+    console.log('featureTypes are ', featureTypes)
+  }, [featureTypes])
+
   const saveFeature = () => {
-    const data = {
+    const featureData = {
       owner: uid,
       blockId: block.id,
       area: blockArea,
@@ -165,8 +176,11 @@ const BlockMap = props => {
       featureType: featureType
     }
 
-    createFeature(data)
+    console.log('saving feature')
+
+    createFeature(featureData)
       .then(() => {
+        console.log('feature created')
         setNewFeature(null)
         setBlockArea(0)
         setResetMap(true)
@@ -176,32 +190,36 @@ const BlockMap = props => {
   return (
     <div style={{height: '480px', position: 'relative'}}>
       <div ref={mapContainer} style={styles} />
-      {blockArea && featureTypes ?
+      {blockArea ?
         <div className='map-control'>
           <p>
             Feature area {blockArea} sq meters
           </p>
-          <p>
-            Feature type:
-          </p>
-          <DropdownButton
+          {featureTypes &&
+              <div>
+              <p>
+                Feature type:
+              </p>
+            <DropdownButton
             id={`dropdown-button-drop-feature-types`}
             drop={`down`}
             variant="secondary"
             size={"small"}
             title={featureType}
-          >
-            {featureTypes.length > 0 && featureTypes.map(f => (
-              <Dropdown.Item
-                key={f.type}
-                eventKey={f.type}
-                onClick={e => setFeatureType(f.type)}
-              >
-                {f.label}
-              </Dropdown.Item>
+            >
+          {featureTypes.data.length > 0 && featureTypes.data.map(f => (
+            <Dropdown.Item
+            key={f.type}
+            eventKey={f.type}
+            onClick={e => setFeatureType(f.type)}
+            >
+          {f.label}
+            </Dropdown.Item>
             ))}
-          </DropdownButton>
-          <button onClick={saveFeature}>Save feature</button>
+            </DropdownButton>
+            <button onClick={saveFeature}>Save feature</button>
+          </div>
+          }
         </div> :
         <div className='map-control'>
           <p>Draw a feature using the polygon tool</p>

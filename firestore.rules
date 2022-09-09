@@ -44,6 +44,10 @@ service cloud.firestore {
     allow create: if request.auth.uid != null;
   }
 
+  match /featureTypes/{id} {
+    allow read, create: if request.auth.uid != null;
+  }
+
 }
 
 // Helper functions that simplify our rules
