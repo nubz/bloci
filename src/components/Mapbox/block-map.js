@@ -66,13 +66,10 @@ const BlockMap = props => {
         function updateArea(e) {
           const mapData = draw.getAll()
           setNewFeature(mapData)
-          console.log('data:', mapData)
           if (mapData.features.length > 0) {
             const area = turf.area(mapData)
-            console.log('area = ' + area)
             setBlockArea(Math.round(area * 100) / 100)
           } else {
-            console.log('mapData has no features')
             setBlockArea(0)
           }
         }
@@ -90,7 +87,6 @@ const BlockMap = props => {
     }
 
     if ((!map && block && block.feature) || resetMap) {
-      console.log('resetting map')
       initializeMap({ setMap, mapContainer })
     }
   }, [map, block, resetMap]);
@@ -136,9 +132,10 @@ const BlockMap = props => {
             'source': featureId,
             'layout': {},
             'paint': {
-              'fill-color': '#4caf50',
-              'fill-opacity': 0.3,
-              'fill-outline-color': '#ffffff'
+              'fill-color': '#81c8ee',
+              'fill-opacity': 0.5,
+              'fill-outline-color': '#fff',
+              'fill-antialias': true
             }
           })
 
