@@ -32,7 +32,8 @@ function GardenStats(props) {
     'PRIVATE_GARDEN': 'Privately owned garden',
     'COMMUNAL_GARDEN': 'Shared private garden',
     'GREEN_SPACE': 'Municipal or common green space',
-    'ROOF_GARDEN': 'Roof garden'
+    'ROOF_GARDEN': 'Roof garden',
+    'POND': 'Pond'
   }
   const gardenFeatureTypes = {
     'POND': 'Pond',

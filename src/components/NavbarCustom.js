@@ -15,12 +15,7 @@ function NavbarCustom(props) {
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand>
-            <img
-              className="d-inline-block align-top"
-              src={props.logo}
-              alt="Logo"
-              height="30"
-            />
+            bloci
           </Navbar.Brand>
         </LinkContainer>
 

@@ -100,8 +100,8 @@ const MapboxGLMap = props => {
             'source': b.id,
             'layout': {},
             'paint': {
-              'fill-color': '#088',
-              'fill-opacity': 0.7
+              'fill-color': '#72FF13',
+              'fill-opacity': 0.5
             }
           })
 

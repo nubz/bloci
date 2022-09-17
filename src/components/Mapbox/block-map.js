@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import "./map-control.scss"
-import { createFeature, useBlockFeatures, firestoreToGeoJSON, useFeatures } from '../../util/db'
+import { createFeature, firestoreToGeoJSON, useFeatures } from '../../util/db'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import * as turf from '@turf/turf'
 import DropdownButton from 'react-bootstrap/DropdownButton'
@@ -158,10 +158,6 @@ const BlockMap = props => {
     }
   }, [map, block, blockFeatures, mapLoaded])
 
-  useEffect(() => {
-    console.log('featureTypes are ', featureTypes)
-  }, [featureTypes])
-
   const saveFeature = () => {
     const featureData = {
       owner: uid,
@@ -171,11 +167,8 @@ const BlockMap = props => {
       featureType: featureType
     }
 
-    console.log('saving feature')
-
     createFeature(featureData)
       .then(() => {
-        console.log('feature created')
         setNewFeature(null)
         setBlockArea(0)
         setResetMap(true)

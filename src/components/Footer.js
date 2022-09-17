@@ -21,11 +21,7 @@ function Footer(props) {
           <Col xs={12} md={4}>
             <Link to="/">
               <div>
-                <img
-                  className="FooterComponent__logo"
-                  src={props.logo}
-                  alt="Logo"
-                />
+                bloci
               </div>
             </Link>
 

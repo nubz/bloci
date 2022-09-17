@@ -35,8 +35,11 @@ export function useBlocksByOwner(owner) {
 }
 
 export function useFeatures() {
-  console.log('trying to use features')
   return useQuery(firestore.collection("featureTypes"))
+}
+
+export function useFeatureType(type) {
+  return useQuery(type && firestore.collection("featureTypes").where("type", "==", type))
 }
 
 export function useBlockFeatures(id) {
