@@ -43,7 +43,7 @@ const FeatureMap = props => {
           return bounds.extend(coord);
         }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
         map.fitBounds(bounds, {
-          padding: 150
+          padding: 50
         });
       });
     };
@@ -65,12 +65,12 @@ const FeatureMap = props => {
 
         map.addLayer({
           'id': feature.id,
-          'type': 'fill',
+          'type': 'line',
           'source': feature.id,
           'layout': {},
           'paint': {
-            'fill-color': '#4caf50',
-            'fill-opacity': 0.5
+            'line-color': '#7DF9FF',
+            'line-width': 3
           }
         })
 

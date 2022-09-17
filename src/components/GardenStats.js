@@ -58,7 +58,7 @@ function GardenStats(props) {
       bgImageOpacity={props.bgImageOpacity}
     >
       {garden && garden.locality &&
-        <Container className="text-center">
+        <Container>
         <Stats
           items={[
             {

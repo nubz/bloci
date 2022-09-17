@@ -110,7 +110,7 @@ const BlockMap = props => {
           'source': block.id,
           'layout': {},
           'paint': {
-            'line-color': '#4caf50',
+            'line-color': '#72FF13',
             'line-width': 3
           }
         })
@@ -132,10 +132,8 @@ const BlockMap = props => {
             'source': featureId,
             'layout': {},
             'paint': {
-              'fill-color': '#81c8ee',
-              'fill-opacity': 0.5,
-              'fill-outline-color': '#fff',
-              'fill-antialias': true
+              'fill-color': '#7DF9FF',
+              'fill-opacity': 0.5
             }
           })
 
