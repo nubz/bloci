@@ -4,9 +4,9 @@ import Container from "react-bootstrap/Container";
 import Stats from "./Stats";
 import Helpers from '../util/helpers'
 import { updateFeature } from '../util/db'
-import Button from 'react-bootstrap/Button'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
+import AsyncSpecies from "./Autocomplete";
 
 function GardenStats(props) {
   const { garden } = props
@@ -59,25 +59,6 @@ function GardenStats(props) {
     >
       {garden && garden.locality &&
         <Container className="text-center">
-          <h2>{garden && featureTypes[garden.featureType]}: {garden.locality[0]} ({garden.locality[1]})</h2>
-          <Button variant={'info'}>Report a sighting</Button>
-          <DropdownButton
-            id={`dropdown-button-drop-feature-types`}
-            style={{display: 'inline-block', marginLeft: '1em'}}
-            drop={`down`}
-            variant="primary"
-            size={"small"}
-            title={'Add a feature '}
-          >
-            {Object.keys(gardenFeatureTypes).map(f => (
-              <Dropdown.Item
-                key={f}
-                eventKey={f}
-              >
-                {gardenFeatureTypes[f]}
-              </Dropdown.Item>
-            ))}
-          </DropdownButton>
         <Stats
           items={[
             {
@@ -98,6 +79,24 @@ function GardenStats(props) {
             },
           ]}
         />
+
+          <DropdownButton
+              id={`dropdown-button-drop-feature-types`}
+              style={{display: 'inline-block', marginLeft: '1em'}}
+              drop={`down`}
+              variant="primary"
+              size={"small"}
+              title={'Add a fixture '}
+          >
+            {Object.keys(gardenFeatureTypes).map(f => (
+                <Dropdown.Item
+                    key={f}
+                    eventKey={f}
+                >
+                  {gardenFeatureTypes[f]}
+                </Dropdown.Item>
+            ))}
+          </DropdownButton>
       </Container>
       }
     </Section>

@@ -3,17 +3,12 @@ import mapboxgl from 'mapbox-gl'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import "./map-control.scss"
-import { createFeature, useBlockFeatures, firestoreToGeoJSON, useFeatures } from '../../util/db'
-import MapboxDraw from '@mapbox/mapbox-gl-draw'
-import * as turf from '@turf/turf'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
+import { firestoreToGeoJSON } from '../../util/db'
 import { useAuth } from '../../util/auth'
-import { history } from '../../util/router'
 
 const styles = {
   width: "100%",
-  height: "calc(100% - 0px)",
+  height: "calc(100% - 20px)",
   position: "absolute"
 }
 
@@ -34,9 +29,9 @@ const FeatureMap = props => {
       const coordinates = geoJson.geometry.coordinates[0]
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/mapbox/satellite-streets-v11",
+        style: "mapbox://styles/mapbox/satellite-v9",
         center: coordinates[0],
-        zoom: 17,
+        zoom: 10,
         antialias: true
       });
 

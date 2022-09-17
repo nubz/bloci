@@ -10,14 +10,19 @@ const greenSpaceTypes = ['GREEN_SPACE', 'PRIVATE_GARDEN', 'COMMUNAL_GARDEN', 'RO
 function StatsSection(props) {
   const { block, blockFeatures } = props
   const [ greenSpace, setGreenSpace ] = useState(0)
+  const [ pondArea, setPondArea ] = useState(0)
   useEffect(() => {
     if (blockFeatures) {
       let g = 0
+      let p = 0
       blockFeatures.forEach(f => {
 
         if(greenSpaceTypes.includes(f.featureType)) {
           g += f.area
           setGreenSpace(g)
+        } else if (f.featureType === 'POND') {
+          p += f.area
+          setPondArea(p)
         }
       })
     }
@@ -67,7 +72,7 @@ function StatsSection(props) {
             },
             {
               title: "Ponds",
-              stat: "?",
+              stat: Helpers.formatNumber(pondArea) + " sqm",
             },
           ]}
         />

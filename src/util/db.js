@@ -47,13 +47,17 @@ export function useBlockFeature(id) {
   return useQuery(id && firestore.collection("features").doc(id))
 }
 
-export function featureTypeName(id) {
-
-}
-
 // Fetch item data
 export function useBlock(id) {
   return useQuery(id && firestore.collection("blocks").doc(id));
+}
+
+export function deleteBlock(id) {
+  firestore.collection("blocks").doc(id).delete().then(() => {
+    console.log('block deleted')
+  }).catch((error) => {
+    console.error("Error removing document: ", error);
+  })
 }
 
 export function updateBlock(id, data) {
@@ -68,12 +72,19 @@ export function createFeature(data) {
     area: data.area,
     featureType: data.featureType
   }
-  console.log('creating feature', normalised)
   return firestore.collection("features").add(normalised);
 }
 
 export function updateFeature(id, data) {
   return firestore.collection("features").doc(id).update(data);
+}
+
+export function deleteFeature(id) {
+  firestore.collection("features").doc(id).delete().then(() => {
+    console.log("Feature removed")
+  }).catch((error) => {
+    console.error("Error removing document: ", error);
+  })
 }
 
 

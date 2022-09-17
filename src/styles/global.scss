@@ -53,4 +53,14 @@ $grid-breakpoints: (
   > * {
     flex-shrink: 0;
   }
+  .auto-suggest {
+    padding: 2em;
+    text-align: left;
+  }
+  .deleteBtn {
+    width: 200px;
+  }
+  .ptop {
+    padding-top: 2em;
+  }
 }

@@ -39,7 +39,7 @@ const MapboxGLMap = props => {
 
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/mapbox/light-v10",
+        style: "mapbox://styles/mapbox/streets-v11",
         center: [longitude, latitude],
         zoom: 17,
         pitch: 45,
